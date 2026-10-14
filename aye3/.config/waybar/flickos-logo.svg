@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256">
+  <title>FlickOS</title>
+  <path d="M113.9 142.1L202.9 72.9L183.1 53.1Z" fill="#ffffff"/>
+  <path d="M210.1 106.0A85 85 0 1 1 150.0 45.9A13 13 0 0 1 143.3 71.0A59 59 0 1 0 185.0 112.7A13 13 0 0 1 210.1 106.0Z" fill="#ffb13d"/>
+  <circle cx="193" cy="63" r="22" fill="#ffb13d"/>
+</svg>

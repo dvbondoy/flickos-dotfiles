@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+  Seven for labwc. Reference: man labwc-config, man labwc-actions.
+  The window theme is ~/.local/share/themes/Seven/labwc/themerc.
+  Change the apps in the keybinds below to your own.
+-->
+<labwc_config>
+  <theme>
+    <name>Seven</name>
+    <cornerRadius>6</cornerRadius>
+    <!-- Window icons in the title bar (unset, labwc shows only hicolor's). -->
+    <icon>Numix</icon>
+  </theme>
+
+  <!-- Alt+Tab: the app's name and the window title. -->
+  <windowSwitcher show="yes" preview="yes" outlines="yes" allWorkspaces="no">
+    <fields>
+      <field content="desktop_entry_name" width="30%" />
+      <field content="title" width="70%" />
+    </fields>
+  </windowSwitcher>
+
+  <!-- Screen zoom: Super+= / Super+- / Super+0, or Super+scroll. -->
+  <magnifier>
+    <width>-1</width>
+    <height>-1</height>
+    <initScale>2</initScale>
+    <increment>0.5</increment>
+  </magnifier>
+
+  <keyboard>
+    <!-- labwc's own keys: Alt+Tab, Alt+F4, snapping, window menu. The ones
+         below win where they use the same key. -->
+    <default />
+
+    <!-- Apps -->
+    <keybind key="W-Return"><action name="Execute"><command>foot</command></action></keybind>
+    <keybind key="W-d"><action name="Execute"><command>sh -c 'pkill -x fuzzel || fuzzel'</command></action></keybind>
+    <keybind key="A-F3"><action name="Execute"><command>sh -c 'pkill -x fuzzel || fuzzel'</command></action></keybind>
+    <keybind key="W-e"><action name="Execute"><command>thunar</command></action></keybind>
+    <keybind key="W-b"><action name="Execute"><command>firefox</command></action></keybind>
+
+    <!-- Windows and session -->
+    <keybind key="W-q"><action name="Close" /></keybind>
+    <keybind key="W-l"><action name="Execute"><command>sh -c 'swaylock -f -i ~/.local/share/backgrounds/seven.png'</command></action></keybind>
+    <keybind key="W-S-e"><action name="Exit" /></keybind>
+
+    <!-- Screenshots (grim, slurp, wl-copy): Print = an area, Shift+Print = the screen -->
+    <keybind key="Print"><action name="Execute"><command>sh -c 'mkdir -p ~/Pictures/Screenshots &amp;&amp; f=~/Pictures/Screenshots/$(date +%F-%H%M%S).png &amp;&amp; grim -g "$(slurp)" "$f" &amp;&amp; wl-copy &lt; "$f"'</command></action></keybind>
+    <keybind key="S-Print"><action name="Execute"><command>sh -c 'mkdir -p ~/Pictures/Screenshots &amp;&amp; f=~/Pictures/Screenshots/$(date +%F-%H%M%S).png &amp;&amp; grim "$f" &amp;&amp; wl-copy &lt; "$f"'</command></action></keybind>
+
+    <!-- Zoom (<magnifier> above) -->
+    <keybind key="W-equal"><action name="ZoomIn" /></keybind>
+    <keybind key="W-minus"><action name="ZoomOut" /></keybind>
+    <keybind key="W-0"><action name="ToggleMagnify" /></keybind>
+
+    <!-- Volume (PipeWire), media players, brightness -->
+    <keybind key="XF86AudioRaiseVolume"><action name="Execute"><command>wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+</command></action></keybind>
+    <keybind key="XF86AudioLowerVolume"><action name="Execute"><command>wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-</command></action></keybind>
+    <keybind key="XF86AudioMute"><action name="Execute"><command>wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle</command></action></keybind>
+    <keybind key="XF86AudioMicMute"><action name="Execute"><command>wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle</command></action></keybind>
+    <keybind key="XF86AudioPlay"><action name="Execute"><command>playerctl play-pause</command></action></keybind>
+    <keybind key="XF86AudioNext"><action name="Execute"><command>playerctl next</command></action></keybind>
+    <keybind key="XF86AudioPrev"><action name="Execute"><command>playerctl previous</command></action></keybind>
+    <keybind key="XF86MonBrightnessUp"><action name="Execute"><command>brightnessctl set 5%+</command></action></keybind>
+    <keybind key="XF86MonBrightnessDown"><action name="Execute"><command>brightnessctl set 5%-</command></action></keybind>
+  </keyboard>
+
+  <mouse>
+    <!-- labwc's own: title bars, borders, buttons, Alt+drag. -->
+    <default />
+
+    <!-- A click on the desktop closes the launcher; right click: labwc's menu. -->
+    <context name="Root">
+      <mousebind button="Left" action="Press">
+        <action name="Execute"><command>pkill -x fuzzel</command></action>
+      </mousebind>
+      <mousebind button="Right" action="Press">
+        <action name="Execute"><command>pkill -x fuzzel</command></action>
+        <action name="ShowMenu" menu="root-menu" />
+      </mousebind>
+    </context>
+
+    <!-- Super+scroll zooms anywhere. -->
+    <context name="All">
+      <mousebind direction="W-Up" action="Scroll"><action name="ZoomIn" /></mousebind>
+      <mousebind direction="W-Down" action="Scroll"><action name="ZoomOut" /></mousebind>
+    </context>
+  </mouse>
+</labwc_config>

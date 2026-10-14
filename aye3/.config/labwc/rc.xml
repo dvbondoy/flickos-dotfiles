@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+  Aye3 for labwc. Reference: man labwc-config, man labwc-actions.
+  The window theme is ~/.local/share/themes/Aye3/labwc/themerc.
+  Change the apps in the keybinds below to your own.
+-->
+<labwc_config>
+  <theme>
+    <name>Aye3</name>
+    <cornerRadius>6</cornerRadius>
+    <!-- Window icons in the title bar (unset, labwc shows only hicolor's). -->
+    <icon>Numix</icon>
+  </theme>
+
+  <!-- Alt+Tab: the app's name and the window title. -->
+  <windowSwitcher show="yes" preview="yes" outlines="yes" allWorkspaces="no">
+    <fields>
+      <field content="desktop_entry_name" width="30%" />
+      <field content="title" width="70%" />
+    </fields>
+  </windowSwitcher>
+
+  <!-- Screen zoom: Super+= / Super+- / Super+0, or Super+scroll. -->
+  <magnifier>
+    <width>-1</width>
+    <height>-1</height>
+    <initScale>2</initScale>
+    <increment>0.5</increment>
+  </magnifier>
+
+  <!-- Four desktops, named 1 to 4 (the bar's buttons). -->
+  <desktops number="4">
+    <names>
+      <name>1</name>
+      <name>2</name>
+      <name>3</name>
+      <name>4</name>
+    </names>
+  </desktops>
+
+  <keyboard>
+    <!-- labwc's own keys: Alt+Tab, Alt+F4, snapping, window menu. The ones
+         below win where they use the same key. -->
+    <default />
+
+    <!-- Apps -->
+    <keybind key="W-Return"><action name="Execute"><command>foot</command></action></keybind>
+    <keybind key="W-d"><action name="Execute"><command>sh -c 'pkill -x fuzzel || fuzzel'</command></action></keybind>
+    <keybind key="A-F3"><action name="Execute"><command>sh -c 'pkill -x fuzzel || fuzzel'</command></action></keybind>
+    <keybind key="W-e"><action name="Execute"><command>thunar</command></action></keybind>
+    <keybind key="W-b"><action name="Execute"><command>firefox</command></action></keybind>
+
+    <!-- Windows and session -->
+    <keybind key="W-q"><action name="Close" /></keybind>
+    <keybind key="W-l"><action name="Execute"><command>sh -c 'swaylock -f -i ~/.local/share/backgrounds/aye3.png'</command></action></keybind>
+    <keybind key="W-S-e"><action name="Exit" /></keybind>
+
+    <!-- Screenshots (grim, slurp, wl-copy): Print = an area, Shift+Print = the screen -->
+    <keybind key="Print"><action name="Execute"><command>sh -c 'mkdir -p ~/Pictures/Screenshots &amp;&amp; f=~/Pictures/Screenshots/$(date +%F-%H%M%S).png &amp;&amp; grim -g "$(slurp)" "$f" &amp;&amp; wl-copy &lt; "$f"'</command></action></keybind>
+    <keybind key="S-Print"><action name="Execute"><command>sh -c 'mkdir -p ~/Pictures/Screenshots &amp;&amp; f=~/Pictures/Screenshots/$(date +%F-%H%M%S).png &amp;&amp; grim "$f" &amp;&amp; wl-copy &lt; "$f"'</command></action></keybind>
+
+    <!-- Zoom (<magnifier> above) -->
+    <keybind key="W-equal"><action name="ZoomIn" /></keybind>
+    <keybind key="W-minus"><action name="ZoomOut" /></keybind>
+    <keybind key="W-0"><action name="ToggleMagnify" /></keybind>
+
+    <!-- Desktops: Super+1..4 go there, Super+Shift+1..4 move the window there,
+         Super+Ctrl+Left/Right the next one (with Shift: move the window). -->
+    <keybind key="W-C-Left"><action name="GoToDesktop" to="left" wrap="no" /></keybind>
+    <keybind key="W-C-Right"><action name="GoToDesktop" to="right" wrap="no" /></keybind>
+    <keybind key="W-C-S-Left"><action name="SendToDesktop" to="left" wrap="no" /></keybind>
+    <keybind key="W-C-S-Right"><action name="SendToDesktop" to="right" wrap="no" /></keybind>
+    <keybind key="W-1"><action name="GoToDesktop" to="1" /></keybind>
+    <keybind key="W-2"><action name="GoToDesktop" to="2" /></keybind>
+    <keybind key="W-3"><action name="GoToDesktop" to="3" /></keybind>
+    <keybind key="W-4"><action name="GoToDesktop" to="4" /></keybind>
+    <keybind key="W-S-1"><action name="SendToDesktop" to="1" /></keybind>
+    <keybind key="W-S-2"><action name="SendToDesktop" to="2" /></keybind>
+    <keybind key="W-S-3"><action name="SendToDesktop" to="3" /></keybind>
+    <keybind key="W-S-4"><action name="SendToDesktop" to="4" /></keybind>
+
+    <!-- Volume (PipeWire), media players, brightness -->
+    <keybind key="XF86AudioRaiseVolume"><action name="Execute"><command>wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+</command></action></keybind>
+    <keybind key="XF86AudioLowerVolume"><action name="Execute"><command>wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-</command></action></keybind>
+    <keybind key="XF86AudioMute"><action name="Execute"><command>wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle</command></action></keybind>
+    <keybind key="XF86AudioMicMute"><action name="Execute"><command>wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle</command></action></keybind>
+    <keybind key="XF86AudioPlay"><action name="Execute"><command>playerctl play-pause</command></action></keybind>
+    <keybind key="XF86AudioNext"><action name="Execute"><command>playerctl next</command></action></keybind>
+    <keybind key="XF86AudioPrev"><action name="Execute"><command>playerctl previous</command></action></keybind>
+    <keybind key="XF86MonBrightnessUp"><action name="Execute"><command>brightnessctl set 5%+</command></action></keybind>
+    <keybind key="XF86MonBrightnessDown"><action name="Execute"><command>brightnessctl set 5%-</command></action></keybind>
+  </keyboard>
+
+  <mouse>
+    <!-- labwc's own: title bars, borders, buttons, Alt+drag. -->
+    <default />
+
+    <!-- A click on the desktop closes the launcher; right click: labwc's menu. -->
+    <context name="Root">
+      <mousebind button="Left" action="Press">
+        <action name="Execute"><command>pkill -x fuzzel</command></action>
+      </mousebind>
+      <mousebind button="Right" action="Press">
+        <action name="Execute"><command>pkill -x fuzzel</command></action>
+        <action name="ShowMenu" menu="root-menu" />
+      </mousebind>
+    </context>
+
+    <!-- Super+scroll zooms anywhere. -->
+    <context name="All">
+      <mousebind direction="W-Up" action="Scroll"><action name="ZoomIn" /></mousebind>
+      <mousebind direction="W-Down" action="Scroll"><action name="ZoomOut" /></mousebind>
+    </context>
+  </mouse>
+</labwc_config>

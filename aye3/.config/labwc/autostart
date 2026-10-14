@@ -1,0 +1,6 @@
+# Run by labwc (sh) when the session starts. Reference: man labwc-config.
+swaybg -m fill -i "$HOME/.local/share/backgrounds/aye3.png" >/dev/null 2>&1 &
+waybar >/dev/null 2>&1 &
+mako >/dev/null 2>&1 &
+# The network icon in the panel's tray, if you have it.
+command -v nm-applet >/dev/null && nm-applet --indicator >/dev/null 2>&1 &

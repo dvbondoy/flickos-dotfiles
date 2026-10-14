@@ -1,0 +1,53 @@
+// Seven's panel: one bar at the bottom with the launcher, a window list of
+// icons, then tray, volume, battery and the clock. Reference: man waybar,
+// man waybar-<module>.
+//
+// The window list shows icons only (the title is in the tooltip): waybar
+// doesn't shorten taskbar titles, so a long list would push the clock off
+// the bar.
+{
+    "name": "panel",
+    "layer": "top",
+    "position": "bottom",
+    "height": 40,
+    "spacing": 4,
+
+    "modules-left": ["custom/launcher", "wlr/taskbar"],
+    "modules-right": ["tray", "wireplumber", "battery", "clock"],
+
+    // The FlickOS logo (style.css draws it); a second click closes fuzzel.
+    "custom/launcher": {
+        "format": " ",
+        "tooltip-format": "Search and open apps (Super+D)",
+        "on-click": "pkill -x fuzzel || fuzzel"
+    },
+    // A click brings a window to the front, or minimizes it when it already is.
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 24,
+        "tooltip-format": "{title}",
+        "on-click": "minimize-raise",
+        "on-click-middle": "close"
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 20
+    },
+    // Volume and battery are icons (style.css), the value is in the tooltip.
+    "wireplumber": {
+        "format": " ",
+        "tooltip-format": "Volume {volume}%",
+        "on-click": "pavucontrol",
+        "scroll-step": 5
+    },
+    "battery": {
+        "format": " ",
+        "tooltip-format": "Battery {capacity}%, {timeTo}",
+        "states": { "warning": 20, "critical": 10 }
+    },
+    "clock": {
+        "format": "{:%H:%M\n%d/%m/%Y}",
+        "justify": "center",
+        "tooltip-format": "<tt>{calendar}</tt>"
+    }
+}

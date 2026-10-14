@@ -1,0 +1,24 @@
+# Aye3: slate blue notifications.
+# Reference: man 5 mako.
+font=DejaVu Sans 10
+width=360
+padding=10
+margin=10
+background-color=#285577ee
+text-color=#ffffff
+border-color=#4c7899
+border-size=2
+border-radius=8
+default-timeout=5000
+
+[urgency=critical]
+border-color=#900000
+default-timeout=0
+
+# Do Not Disturb (makoctl mode -t do-not-disturb): notifications are kept but
+# not shown, except critical ones.
+[mode=do-not-disturb]
+invisible=1
+
+[mode=do-not-disturb urgency=critical]
+invisible=0

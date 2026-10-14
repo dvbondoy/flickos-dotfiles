@@ -1,0 +1,59 @@
+// Aye3's bar: one bar at the bottom, desktop numbers on the left, the status
+// as text on the right, separated by thin lines (style.css).
+// Reference: man waybar, man waybar-<module>.
+//
+// The desktop numbers are waybar's ext/workspaces module, which needs a
+// waybar newer than 0.12 (Debian 13 has 0.12: leave "ext/workspaces" out
+// there). labwc's desktops are in ../labwc/rc.xml.
+{
+    "name": "aye3bar",
+    "layer": "top",
+    "position": "bottom",
+    "height": 22,
+    "spacing": 0,
+
+    "modules-left": ["custom/launcher", "ext/workspaces"],
+    "modules-center": [],
+    "modules-right": ["network", "cpu", "memory", "wireplumber", "battery", "clock", "tray"],
+
+    // The FlickOS logo (style.css draws it); a second click closes fuzzel.
+    "custom/launcher": {
+        "format": " ",
+        "tooltip-format": "Search and open apps (Super+D)",
+        "on-click": "pkill -x fuzzel || fuzzel"
+    },
+    "ext/workspaces": {
+        "format": "{name}",
+        "on-click": "activate",
+        "sort-by-name": true
+    },
+    "network": {
+        "format-wifi": "W: {essid} {ipaddr}",
+        "format-ethernet": "E: {ipaddr}",
+        "format-disconnected": "W: down",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "on-click": "nm-connection-editor"
+    },
+    // Every 15 s: each read wakes waybar up.
+    "cpu": { "format": "CPU {usage}%", "interval": 15 },
+    "memory": { "format": "MEM {used:0.1f}G", "interval": 15 },
+    "wireplumber": {
+        "format": "VOL {volume}%",
+        "format-muted": "VOL muted",
+        "on-click": "pavucontrol",
+        "scroll-step": 5
+    },
+    "battery": {
+        "format": "BAT {capacity}%",
+        "format-charging": "CHR {capacity}%",
+        "states": { "warning": 20, "critical": 10 }
+    },
+    "clock": {
+        "format": "{:%Y-%m-%d %H:%M}",
+        "tooltip-format": "<tt>{calendar}</tt>"
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 20
+    }
+}
